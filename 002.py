@@ -86,6 +86,7 @@ def main():
     dp.add_handler(CommandHandler("help", help))
     dp.add_handler(CommandHandler("weather", weather))
     updater.dispatcher.add_handler(CallbackQueryHandler(button))
+    dp.add_handler(CommandHandler("photo", photo))
 
     # on noncommand i.e message - echo the message on Telegram
     dp.add_handler(MessageHandler(Filters.text, echo))
