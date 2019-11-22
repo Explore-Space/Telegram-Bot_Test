@@ -17,7 +17,8 @@ bot.
 
 import logging
 
-from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
+from telegram import InlineKeyboardButton, InlineKeyboardMarkup
+from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CommandHandler, CallbackQueryHandler
 
 T = open("./Token.txt","r")
 Token_000 = T.read()
@@ -33,12 +34,31 @@ logger = logging.getLogger(__name__)
 # context. Error handlers also receive the raised TelegramError object in error.
 def start(update, context):
     """Send a message when the command /start is issued."""
-    update.message.reply_text('Hi!')
+    update.message.reply_text('Hi~')
 
+def weather(update, context):
+    """Send a message when the command /start is issued."""
+    keyboard = [[InlineKeyboardButton("Option 1", callback_data='1'),
+                 InlineKeyboardButton("Option 2", callback_data='2')],
+
+                [InlineKeyboardButton("Option 3", callback_data='3')]]
+
+    reply_markup = InlineKeyboardMarkup(keyboard)
+
+    update.message.reply_text('Please choose:', reply_markup=reply_markup)
+
+def button(update, context):
+    query = update.callback_query
+
+    query.edit_message_text(text="Selected option: {}".format(query.data))
 
 def help(update, context):
     """Send a message when the command /help is issued."""
     update.message.reply_text('Help!')
+
+def photo(update, context):
+    """Send a message when the command /help is issued."""
+    update.message.reply_text('https://picsum.photos/1920/1080.jpg')
 
 
 def echo(update, context):
@@ -64,6 +84,8 @@ def main():
     # on different commands - answer in Telegram
     dp.add_handler(CommandHandler("start", start))
     dp.add_handler(CommandHandler("help", help))
+    dp.add_handler(CommandHandler("weather", weather))
+    updater.dispatcher.add_handler(CallbackQueryHandler(button))
 
     # on noncommand i.e message - echo the message on Telegram
     dp.add_handler(MessageHandler(Filters.text, echo))
