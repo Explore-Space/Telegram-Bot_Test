@@ -9,7 +9,7 @@ def hello(update, context):
         'Hello {}'.format(update.message.from_user.first_name))
 
 
-updater = Updater('694637108:AAEAX7cS0nGqgCgv0u_uN9Co6yS-zKviO8s', use_context=True)
+updater = Updater('Token_000', use_context=True)
 
 updater.dispatcher.add_handler(CommandHandler('hello', hello))
 
