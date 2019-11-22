@@ -21,7 +21,6 @@ from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 
 T = open("./Token.txt","r")
 Token_000 = T.read()
-print(Token_000)
 
 # Enable logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
